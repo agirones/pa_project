@@ -1,9 +1,11 @@
-module pc(input clk, input [31:0] pc_, output reg [31:0] pc);
+module pc(input clk, input reset, input logic [31:0] pc_, output logic [31:0] pc);
 
-always@(posedge clk)
+always@(posedge clk, posedge reset)
 begin
-    pc <= pc_;
-    #1;$display("pc_= %d, pc= %d", pc_, pc);
+    if(reset)
+        pc <= 32'b0;
+    else
+        pc <= pc_;
 end
 
 endmodule

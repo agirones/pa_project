@@ -1,4 +1,4 @@
-module imem(input clk, input logic [31:0] a,
+module imem(input logic [31:0] a,
             output reg [31:0] rd);
 
     logic [31:0] RAM[63:0];
@@ -6,10 +6,7 @@ module imem(input clk, input logic [31:0] a,
     initial
         $readmemh("memfile.dat", RAM);
 
-    always @ (posedge clk)
-    begin
-        rd <= RAM[a]; // word aligned
-        #1;$display("a= %d, rd= %h", a, rd);
-    end
+    always @ (*)
+        rd <= RAM[a/4];
 
 endmodule
