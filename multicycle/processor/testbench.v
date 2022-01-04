@@ -9,7 +9,13 @@ module testbench();
   
   initial
   begin
-      reset = 1; #11; reset = 0;
+      $dumpfile("testbench.vcd");
+      $dumpvars(0, testbench);  
+  end
+
+  initial
+  begin
+      reset = 1; #10; reset = 0;    
   end
 
   always

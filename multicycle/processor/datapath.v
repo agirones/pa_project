@@ -47,7 +47,7 @@ pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, ri, instr);
 
 // register file logic
-regfile         regfile(clk, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
+regfile         regfile(clk, reset, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
 mux2     #(12)  muxImm(LoadD, {instr[31:25], instr[11:7]}, instr[31:20], Imm);
