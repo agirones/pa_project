@@ -1,0 +1,779 @@
+Analysis & Synthesis report for riscv
+Thu Jan 20 03:04:37 2022
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis DSP Block Usage Summary
+  9. User-Specified and Inferred Latches
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregF
+ 16. Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregD
+ 17. Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregE
+ 18. Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregM
+ 19. Parameter Settings for User Entity Instance: controller:c|aludec:aludec|creg:cregD
+ 20. Parameter Settings for User Entity Instance: controller:c|aludec:aludec|creg:cregE
+ 21. Parameter Settings for User Entity Instance: datapath:dp|signext:extrd2
+ 22. Parameter Settings for User Entity Instance: datapath:dp|mux2:muxStoreData
+ 23. Parameter Settings for User Entity Instance: datapath:dp|mux2:muxImm
+ 24. Parameter Settings for User Entity Instance: datapath:dp|signext:signext
+ 25. Parameter Settings for User Entity Instance: datapath:dp|mux2:muxALUSrcBE
+ 26. Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte
+ 27. Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux0
+ 28. Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux1
+ 29. Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux2
+ 30. Parameter Settings for User Entity Instance: datapath:dp|signext:extbytewrite
+ 31. Parameter Settings for User Entity Instance: datapath:dp|mux2:muxbytewrite
+ 32. Parameter Settings for User Entity Instance: datapath:dp|mux2:muxMemToReg
+ 33. Port Connectivity Checks: "datapath:dp|mux2:muxbytewrite"
+ 34. Port Connectivity Checks: "datapath:dp|instreg:instreg"
+ 35. Port Connectivity Checks: "controller:c|aludec:aludec|creg:cregD"
+ 36. Post-Synthesis Netlist Statistics for Top Partition
+ 37. Elapsed Time Per Partition
+ 38. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Thu Jan 20 03:04:37 2022       ;
+; Quartus Prime Version           ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
+; Revision Name                   ; riscv                                       ;
+; Top-level Entity Name           ; riscv                                       ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 1314                                        ;
+; Total pins                      ; 163                                         ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 2                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CGXFC7C7F23C8     ;                    ;
+; Top-level entity name                                                           ; riscv              ; riscv              ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Verilog Show LMF Mapping Messages                                               ; Off                ;                    ;
+; Verilog Version                                                                 ; SystemVerilog_2005 ; Verilog_2001       ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 24          ;
+; Maximum allowed            ; 16          ;
+;                            ;             ;
+; Average used               ; 1.01        ;
+; Maximum used               ; 16          ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.1%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processor 8            ;   0.0%      ;
+;     Processors 9-16        ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                         ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                           ; Library ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------------+---------+
+; files/signext.v                  ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/signext.v    ;         ;
+; files/riscv.v                    ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v      ;         ;
+; files/regfile.v                  ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/regfile.v    ;         ;
+; files/rdreg.v                    ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/rdreg.v      ;         ;
+; files/pc_plus4.v                 ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/pc_plus4.v   ;         ;
+; files/pc.v                       ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/pc.v         ;         ;
+; files/mux4.v                     ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/mux4.v       ;         ;
+; files/mux2.v                     ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/mux2.v       ;         ;
+; files/maindec.v                  ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v    ;         ;
+; files/instreg.v                  ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/instreg.v    ;         ;
+; files/datapath.v                 ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v   ;         ;
+; files/creg.v                     ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/creg.v       ;         ;
+; files/controller.v               ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/controller.v ;         ;
+; files/areg.v                     ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/areg.v       ;         ;
+; files/alureg.v                   ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alureg.v     ;         ;
+; files/aludec.v                   ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v     ;         ;
+; files/alu.v                      ; yes             ; User Verilog HDL File  ; D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alu.v        ;         ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimate of Logic utilization (ALMs needed) ; 1024      ;
+;                                             ;           ;
+; Combinational ALUT usage for logic          ; 940       ;
+;     -- 7 input functions                    ; 14        ;
+;     -- 6 input functions                    ; 668       ;
+;     -- 5 input functions                    ; 30        ;
+;     -- 4 input functions                    ; 15        ;
+;     -- <=3 input functions                  ; 213       ;
+;                                             ;           ;
+; Dedicated logic registers                   ; 1314      ;
+;                                             ;           ;
+; I/O pins                                    ; 163       ;
+;                                             ;           ;
+; Total DSP Blocks                            ; 2         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 1314      ;
+; Total fan-out                               ; 10086     ;
+; Average fan-out                             ; 3.91      ;
++---------------------------------------------+-----------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                               ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                            ; Entity Name ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------+-------------+--------------+
+; |riscv                     ; 940 (0)             ; 1314 (0)                  ; 0                 ; 2          ; 163  ; 0            ; |riscv                                         ; riscv       ; work         ;
+;    |controller:c|          ; 16 (0)              ; 19 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c                            ; controller  ; work         ;
+;       |aludec:aludec|      ; 5 (5)               ; 4 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|aludec:aludec              ; aludec      ; work         ;
+;          |creg:cregD|      ; 0 (0)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|aludec:aludec|creg:cregD   ; creg        ; work         ;
+;          |creg:cregE|      ; 0 (0)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|aludec:aludec|creg:cregE   ; creg        ; work         ;
+;       |maindec:maindec|    ; 11 (11)             ; 15 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|maindec:maindec            ; maindec     ; work         ;
+;          |creg:cregD|      ; 0 (0)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|maindec:maindec|creg:cregD ; creg        ; work         ;
+;          |creg:cregE|      ; 0 (0)               ; 3 (3)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|maindec:maindec|creg:cregE ; creg        ; work         ;
+;          |creg:cregF|      ; 0 (0)               ; 6 (6)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|maindec:maindec|creg:cregF ; creg        ; work         ;
+;          |creg:cregM|      ; 0 (0)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|controller:c|maindec:maindec|creg:cregM ; creg        ; work         ;
+;    |datapath:dp|           ; 924 (0)             ; 1295 (0)                  ; 0                 ; 2          ; 0    ; 0            ; |riscv|datapath:dp                             ; datapath    ; work         ;
+;       |alu:alu|            ; 79 (79)             ; 0 (0)                     ; 0                 ; 2          ; 0    ; 0            ; |riscv|datapath:dp|alu:alu                     ; alu         ; work         ;
+;       |alureg:alureg|      ; 1 (1)               ; 69 (69)                   ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|alureg:alureg               ; alureg      ; work         ;
+;       |areg:areg|          ; 3 (3)               ; 81 (81)                   ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|areg:areg                   ; areg        ; work         ;
+;       |instreg:instreg|    ; 0 (0)               ; 22 (22)                   ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|instreg:instreg             ; instreg     ; work         ;
+;       |mux2:muxALUSrcBE|   ; 32 (32)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|mux2:muxALUSrcBE            ; mux2        ; work         ;
+;       |mux2:muxImm|        ; 5 (5)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|mux2:muxImm                 ; mux2        ; work         ;
+;       |mux2:muxMemToReg|   ; 32 (32)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|mux2:muxMemToReg            ; mux2        ; work         ;
+;       |mux2:muxStoreData|  ; 264 (264)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|mux2:muxStoreData           ; mux2        ; work         ;
+;       |pc:pc|              ; 1 (1)               ; 30 (30)                   ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|pc:pc                       ; pc          ; work         ;
+;       |pc_plus4:pc_plus4|  ; 29 (29)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|pc_plus4:pc_plus4           ; pc_plus4    ; work         ;
+;       |rdreg:rdreg|        ; 0 (0)               ; 69 (69)                   ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|rdreg:rdreg                 ; rdreg       ; work         ;
+;       |regfile:regfile|    ; 478 (478)           ; 1024 (1024)               ; 0                 ; 0          ; 0    ; 0            ; |riscv|datapath:dp|regfile:regfile             ; regfile     ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary  ;
++---------------------------------+-------------+
+; Statistic                       ; Number Used ;
++---------------------------------+-------------+
+; Two Independent 18x18           ; 1           ;
+; Sum of two 18x18                ; 1           ;
+; Total number of DSP blocks      ; 2           ;
+;                                 ;             ;
+; Fixed Point Unsigned Multiplier ; 3           ;
++---------------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                               ;
++----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal ; Free of Timing Hazards ;
++----------------------------------------------------+---------------------+------------------------+
+; controller:c|aludec:aludec|alucontrolF[2]          ; reset               ; yes                    ;
+; controller:c|aludec:aludec|alucontrolF[0]          ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[4]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[6]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[5]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[3]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[1]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[2]           ; reset               ; yes                    ;
+; controller:c|maindec:maindec|controls[7]           ; reset               ; yes                    ;
+; Number of user-specified and inferred latches = 9  ;                     ;                        ;
++----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                   ;
++---------------------------------------------------+--------------------------------------------------+
+; Register name                                     ; Reason for Removal                               ;
++---------------------------------------------------+--------------------------------------------------+
+; datapath:dp|areg:areg|SignImm[24..31]             ; Stuck at GND due to stuck port data_in           ;
+; controller:c|aludec:aludec|creg:cregD|controls[1] ; Stuck at VCC due to stuck port data_in           ;
+; controller:c|aludec:aludec|creg:cregE|controls[1] ; Stuck at VCC due to stuck port data_in           ;
+; datapath:dp|areg:areg|SignImm[12..23]             ; Merged with datapath:dp|areg:areg|SignImm[11]    ;
+; datapath:dp|areg:areg|SrcBE[0]                    ; Merged with datapath:dp|areg:areg|WriteDataE[0]  ;
+; datapath:dp|areg:areg|SrcBE[1]                    ; Merged with datapath:dp|areg:areg|WriteDataE[1]  ;
+; datapath:dp|areg:areg|SrcBE[2]                    ; Merged with datapath:dp|areg:areg|WriteDataE[2]  ;
+; datapath:dp|areg:areg|SrcBE[3]                    ; Merged with datapath:dp|areg:areg|WriteDataE[3]  ;
+; datapath:dp|areg:areg|SrcBE[4]                    ; Merged with datapath:dp|areg:areg|WriteDataE[4]  ;
+; datapath:dp|areg:areg|SrcBE[5]                    ; Merged with datapath:dp|areg:areg|WriteDataE[5]  ;
+; datapath:dp|areg:areg|SrcBE[6]                    ; Merged with datapath:dp|areg:areg|WriteDataE[6]  ;
+; datapath:dp|areg:areg|SrcBE[7]                    ; Merged with datapath:dp|areg:areg|WriteDataE[7]  ;
+; datapath:dp|areg:areg|SrcBE[8]                    ; Merged with datapath:dp|areg:areg|WriteDataE[8]  ;
+; datapath:dp|areg:areg|SrcBE[9]                    ; Merged with datapath:dp|areg:areg|WriteDataE[9]  ;
+; datapath:dp|areg:areg|SrcBE[10]                   ; Merged with datapath:dp|areg:areg|WriteDataE[10] ;
+; datapath:dp|areg:areg|SrcBE[11]                   ; Merged with datapath:dp|areg:areg|WriteDataE[11] ;
+; datapath:dp|areg:areg|SrcBE[12]                   ; Merged with datapath:dp|areg:areg|WriteDataE[12] ;
+; datapath:dp|areg:areg|SrcBE[13]                   ; Merged with datapath:dp|areg:areg|WriteDataE[13] ;
+; datapath:dp|areg:areg|SrcBE[14]                   ; Merged with datapath:dp|areg:areg|WriteDataE[14] ;
+; datapath:dp|areg:areg|SrcBE[15]                   ; Merged with datapath:dp|areg:areg|WriteDataE[15] ;
+; datapath:dp|areg:areg|SrcBE[16]                   ; Merged with datapath:dp|areg:areg|WriteDataE[16] ;
+; datapath:dp|areg:areg|SrcBE[17]                   ; Merged with datapath:dp|areg:areg|WriteDataE[17] ;
+; datapath:dp|areg:areg|SrcBE[18]                   ; Merged with datapath:dp|areg:areg|WriteDataE[18] ;
+; datapath:dp|areg:areg|SrcBE[19]                   ; Merged with datapath:dp|areg:areg|WriteDataE[19] ;
+; datapath:dp|areg:areg|SrcBE[20]                   ; Merged with datapath:dp|areg:areg|WriteDataE[20] ;
+; datapath:dp|areg:areg|SrcBE[21]                   ; Merged with datapath:dp|areg:areg|WriteDataE[21] ;
+; datapath:dp|areg:areg|SrcBE[22]                   ; Merged with datapath:dp|areg:areg|WriteDataE[22] ;
+; datapath:dp|areg:areg|SrcBE[23]                   ; Merged with datapath:dp|areg:areg|WriteDataE[23] ;
+; datapath:dp|areg:areg|SrcBE[24]                   ; Merged with datapath:dp|areg:areg|WriteDataE[24] ;
+; datapath:dp|areg:areg|SrcBE[25]                   ; Merged with datapath:dp|areg:areg|WriteDataE[25] ;
+; datapath:dp|areg:areg|SrcBE[26]                   ; Merged with datapath:dp|areg:areg|WriteDataE[26] ;
+; datapath:dp|areg:areg|SrcBE[27]                   ; Merged with datapath:dp|areg:areg|WriteDataE[27] ;
+; datapath:dp|areg:areg|SrcBE[28]                   ; Merged with datapath:dp|areg:areg|WriteDataE[28] ;
+; datapath:dp|areg:areg|SrcBE[29]                   ; Merged with datapath:dp|areg:areg|WriteDataE[29] ;
+; datapath:dp|areg:areg|SrcBE[30]                   ; Merged with datapath:dp|areg:areg|WriteDataE[30] ;
+; datapath:dp|areg:areg|SrcBE[31]                   ; Merged with datapath:dp|areg:areg|WriteDataE[31] ;
+; datapath:dp|pc:pc|pc[0]                           ; Merged with datapath:dp|pc:pc|pc[1]              ;
+; datapath:dp|pc:pc|pc[1]                           ; Stuck at GND due to stuck port data_in           ;
+; Total Number of Removed Registers = 56            ;                                                  ;
++---------------------------------------------------+--------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                       ;
++---------------------------------------------------+---------------------------+---------------------------------------------------+
+; Register name                                     ; Reason for Removal        ; Registers Removed due to This Register            ;
++---------------------------------------------------+---------------------------+---------------------------------------------------+
+; controller:c|aludec:aludec|creg:cregD|controls[1] ; Stuck at VCC              ; controller:c|aludec:aludec|creg:cregE|controls[1] ;
+;                                                   ; due to stuck port data_in ;                                                   ;
++---------------------------------------------------+---------------------------+---------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 1314  ;
+; Number of registers using Synchronous Clear  ; 87    ;
+; Number of registers using Synchronous Load   ; 1     ;
+; Number of registers using Asynchronous Clear ; 1054  ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 1024  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; datapath:dp|regfile:regfile|rf[1][0]   ; 2       ;
+; datapath:dp|regfile:regfile|rf[3][0]   ; 2       ;
+; datapath:dp|regfile:regfile|rf[2][1]   ; 2       ;
+; datapath:dp|regfile:regfile|rf[3][1]   ; 2       ;
+; Total number of inverted registers = 4 ;         ;
++----------------------------------------+---------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; 4:1                ; 31 bits   ; 62 LEs        ; 31 LEs               ; 31 LEs                 ; Yes        ; |riscv|datapath:dp|alureg:alureg|aluout[9]  ;
+; 33:1               ; 32 bits   ; 704 LEs       ; 672 LEs              ; 32 LEs                 ; Yes        ; |riscv|datapath:dp|areg:areg|SrcAE[5]       ;
+; 34:1               ; 7 bits    ; 154 LEs       ; 154 LEs              ; 0 LEs                  ; Yes        ; |riscv|datapath:dp|areg:areg|WriteDataE[6]  ;
+; 36:1               ; 8 bits    ; 192 LEs       ; 176 LEs              ; 16 LEs                 ; Yes        ; |riscv|datapath:dp|areg:areg|WriteDataE[15] ;
+; 35:1               ; 16 bits   ; 368 LEs       ; 336 LEs              ; 32 LEs                 ; Yes        ; |riscv|datapath:dp|areg:areg|WriteDataE[27] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregF ;
++----------------+-------+-------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                        ;
++----------------+-------+-------------------------------------------------------------+
+; WIDTH          ; 6     ; Signed Integer                                              ;
++----------------+-------+-------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregD ;
++----------------+-------+-------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                        ;
++----------------+-------+-------------------------------------------------------------+
+; WIDTH          ; 5     ; Signed Integer                                              ;
++----------------+-------+-------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregE ;
++----------------+-------+-------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                        ;
++----------------+-------+-------------------------------------------------------------+
+; WIDTH          ; 4     ; Signed Integer                                              ;
++----------------+-------+-------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|maindec:maindec|creg:cregM ;
++----------------+-------+-------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                        ;
++----------------+-------+-------------------------------------------------------------+
+; WIDTH          ; 3     ; Signed Integer                                              ;
++----------------+-------+-------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|aludec:aludec|creg:cregD ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; WIDTH          ; 3     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:c|aludec:aludec|creg:cregE ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; WIDTH          ; 3     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|signext:extrd2 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                                 ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux2:muxStoreData ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; WIDTH          ; 32    ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux2:muxImm ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; WIDTH          ; 12    ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|signext:signext ;
++----------------+-------+-------------------------------------------------+
+; Parameter Name ; Value ; Type                                            ;
++----------------+-------+-------------------------------------------------+
+; WIDTH          ; 12    ; Signed Integer                                  ;
++----------------+-------+-------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux2:muxALUSrcBE ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; WIDTH          ; 32    ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte ;
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                               ;
++----------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux0 ;
++----------------+-------+--------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                   ;
++----------------+-------+--------------------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                                         ;
++----------------+-------+--------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux1 ;
++----------------+-------+--------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                   ;
++----------------+-------+--------------------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                                         ;
++----------------+-------+--------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux4:muxbyte|mux2:mux2 ;
++----------------+-------+--------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                   ;
++----------------+-------+--------------------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                                         ;
++----------------+-------+--------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|signext:extbytewrite ;
++----------------+-------+------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                 ;
++----------------+-------+------------------------------------------------------+
+; WIDTH          ; 8     ; Signed Integer                                       ;
++----------------+-------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux2:muxbytewrite ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; WIDTH          ; 32    ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:dp|mux2:muxMemToReg ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; WIDTH          ; 32    ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:dp|mux2:muxbytewrite"                                                      ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; y    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:dp|instreg:instreg"                                                                 ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; instr[14..12] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; instr[6..0]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------+
+; Port Connectivity Checks: "controller:c|aludec:aludec|creg:cregD" ;
++--------------+-------+----------+---------------------------------+
+; Port         ; Type  ; Severity ; Details                         ;
++--------------+-------+----------+---------------------------------+
+; controls_[1] ; Input ; Info     ; Stuck at VCC                    ;
++--------------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 1314                        ;
+;     CLR               ; 30                          ;
+;     ENA CLR           ; 1024                        ;
+;     SCLR              ; 87                          ;
+;     SLD               ; 1                           ;
+;     plain             ; 172                         ;
+; arriav_lcell_comb     ; 941                         ;
+;     arith             ; 76                          ;
+;         1 data inputs ; 29                          ;
+;         2 data inputs ; 15                          ;
+;         4 data inputs ; 8                           ;
+;         5 data inputs ; 24                          ;
+;     extend            ; 14                          ;
+;         7 data inputs ; 14                          ;
+;     normal            ; 851                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 5                           ;
+;         2 data inputs ; 12                          ;
+;         3 data inputs ; 152                         ;
+;         4 data inputs ; 7                           ;
+;         5 data inputs ; 6                           ;
+;         6 data inputs ; 668                         ;
+; arriav_mac            ; 2                           ;
+; boundary_port         ; 163                         ;
+;                       ;                             ;
+; Max LUT depth         ; 5.20                        ;
+; Average LUT depth     ; 2.72                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Processing started: Thu Jan 20 03:04:32 2022
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off riscv -c riscv
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file files/top.v
+    Info (12023): Found entity 1: top File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/top.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/signext.v
+    Info (12023): Found entity 1: signext File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/signext.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file files/riscv.v
+    Info (12023): Found entity 1: riscv File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/regfile.v
+    Info (12023): Found entity 1: regfile File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/regfile.v Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file files/rdreg.v
+    Info (12023): Found entity 1: rdreg File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/rdreg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/pc_plus4.v
+    Info (12023): Found entity 1: pc_plus4 File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/pc_plus4.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/pc.v
+    Info (12023): Found entity 1: pc File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/pc.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/mux4.v
+    Info (12023): Found entity 1: mux4 File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/mux4.v Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file files/mux2.v
+    Info (12023): Found entity 1: mux2 File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/mux2.v Line: 6
+Info (12021): Found 1 design units, including 1 entities, in source file files/maindec.v
+    Info (12023): Found entity 1: maindec File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/instreg.v
+    Info (12023): Found entity 1: instreg File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/instreg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/imem.v
+    Info (12023): Found entity 1: imem File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/imem.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/dmem.v
+    Info (12023): Found entity 1: dmem File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/dmem.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/datapath.v
+    Info (12023): Found entity 1: datapath File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 8
+Info (12021): Found 1 design units, including 1 entities, in source file files/creg.v
+    Info (12023): Found entity 1: creg File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/creg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/controller.v
+    Info (12023): Found entity 1: controller File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/controller.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file files/areg.v
+    Info (12023): Found entity 1: areg File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/areg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/alureg.v
+    Info (12023): Found entity 1: alureg File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alureg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/aludec.v
+    Info (12023): Found entity 1: aludec File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file files/alu.v
+    Info (12023): Found entity 1: alu File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alu.v Line: 6
+Warning (10236): Verilog HDL Implicit Net warning at alu.v(14): created implicit net for "M" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alu.v Line: 14
+Info (12127): Elaborating entity "riscv" for the top level hierarchy
+Info (12128): Elaborating entity "controller" for hierarchy "controller:c" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v Line: 12
+Info (12128): Elaborating entity "maindec" for hierarchy "controller:c|maindec:maindec" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/controller.v Line: 11
+Warning (10240): Verilog HDL Always Construct warning at maindec.v(16): inferring latch(es) for variable "controls", which holds its previous value in one or more paths through the always construct File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[0]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[1]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[2]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[3]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[4]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[5]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[6]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (10041): Inferred latch for "controls[7]" at maindec.v(16) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Info (12128): Elaborating entity "creg" for hierarchy "controller:c|maindec:maindec|creg:cregF" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 35
+Info (12128): Elaborating entity "creg" for hierarchy "controller:c|maindec:maindec|creg:cregD" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 36
+Info (12128): Elaborating entity "creg" for hierarchy "controller:c|maindec:maindec|creg:cregE" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 37
+Info (12128): Elaborating entity "creg" for hierarchy "controller:c|maindec:maindec|creg:cregM" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 38
+Info (12128): Elaborating entity "aludec" for hierarchy "controller:c|aludec:aludec" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/controller.v Line: 13
+Warning (10240): Verilog HDL Always Construct warning at aludec.v(10): inferring latch(es) for variable "alucontrolF", which holds its previous value in one or more paths through the always construct File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v Line: 10
+Info (10041): Inferred latch for "alucontrolF[0]" at aludec.v(10) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v Line: 10
+Info (10041): Inferred latch for "alucontrolF[1]" at aludec.v(10) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v Line: 10
+Info (10041): Inferred latch for "alucontrolF[2]" at aludec.v(10) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/aludec.v Line: 10
+Info (12128): Elaborating entity "datapath" for hierarchy "datapath:dp" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v Line: 14
+Info (12128): Elaborating entity "pc" for hierarchy "datapath:dp|pc:pc" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 35
+Info (12128): Elaborating entity "pc_plus4" for hierarchy "datapath:dp|pc_plus4:pc_plus4" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 36
+Info (12128): Elaborating entity "instreg" for hierarchy "datapath:dp|instreg:instreg" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 37
+Info (12128): Elaborating entity "regfile" for hierarchy "datapath:dp|regfile:regfile" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 40
+Info (12128): Elaborating entity "signext" for hierarchy "datapath:dp|signext:extrd2" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 41
+Info (12128): Elaborating entity "mux2" for hierarchy "datapath:dp|mux2:muxStoreData" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 42
+Info (12128): Elaborating entity "mux2" for hierarchy "datapath:dp|mux2:muxImm" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 43
+Info (12128): Elaborating entity "signext" for hierarchy "datapath:dp|signext:signext" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 44
+Info (12128): Elaborating entity "areg" for hierarchy "datapath:dp|areg:areg" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 45
+Info (12128): Elaborating entity "alu" for hierarchy "datapath:dp|alu:alu" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 49
+Warning (10036): Verilog HDL or VHDL warning at alu.v(14): object "M" assigned a value but never read File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alu.v Line: 14
+Warning (10230): Verilog HDL assignment warning at alu.v(14): truncated value with size 32 to match size of target (1) File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/alu.v Line: 14
+Info (12128): Elaborating entity "alureg" for hierarchy "datapath:dp|alureg:alureg" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 50
+Info (12128): Elaborating entity "rdreg" for hierarchy "datapath:dp|rdreg:rdreg" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 53
+Info (12128): Elaborating entity "mux4" for hierarchy "datapath:dp|mux4:muxbyte" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/datapath.v Line: 55
+Info (12128): Elaborating entity "mux2" for hierarchy "datapath:dp|mux4:muxbyte|mux2:mux0" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/mux4.v Line: 14
+Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
+    Info (13026): Duplicate LATCH primitive "controller:c|maindec:maindec|controls[2]" merged with LATCH primitive "controller:c|maindec:maindec|controls[5]" File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/maindec.v Line: 16
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "pc[0]" is stuck at GND File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v Line: 4
+    Warning (13410): Pin "pc[1]" is stuck at GND File: D:/Documents/UPC/MIRI/PA/Projecte/pa_project/multicycle/processor/Quartus_Processor/files/riscv.v Line: 4
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 2284 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 66 input pins
+    Info (21059): Implemented 97 output pins
+    Info (21061): Implemented 2119 logic cells
+    Info (21062): Implemented 2 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 9 warnings
+    Info: Peak virtual memory: 4923 megabytes
+    Info: Processing ended: Thu Jan 20 03:04:37 2022
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:12
+
+
