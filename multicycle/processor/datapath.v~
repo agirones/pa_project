@@ -15,7 +15,7 @@
 `include "alureg.v"
 `include "rdreg.v"
 
-module datapath(input logic clk, reset, pc_en,
+module datapath(input logic clk, reset,
                 input logic [31:0] ri,
                 input logic RegWriteW,
                 input logic LoadD,
@@ -42,7 +42,7 @@ wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
 
 // fetch
-pc              pc(clk, reset, pc_en, pc_, pcf);
+pc              pc(clk, reset, pc_, pcf);
 pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, ri, instr);
 
