@@ -1,4 +1,4 @@
-module alureg(input clk, en,
+module alureg(input clk, 
               input [31:0] aluresult,
               input [31:0] WriteDataE,
               input [4:0] writereg_,
@@ -7,7 +7,6 @@ module alureg(input clk, en,
               output reg [4:0] writereg);
 
 always @ (posedge clk)
-if(en)
 begin
     aluout <= aluresult;
     WriteDataM <= WriteDataE;

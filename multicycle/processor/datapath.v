@@ -42,9 +42,9 @@ wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
 
 // fetch
-pc              pc(clk, reset, pc_en, pc_, pcf);
+pc              pc(clk, reset, (pc_en & dhit), pc_, pcf);
 pc_plus4        pc_plus4(pcf, pc_);
-instreg         instreg(clk, ri, instr);
+instreg         instreg(clk, dhit, ri, instr);
 
 // register file logic
 regfile         regfile(clk, reset, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
@@ -52,15 +52,15 @@ signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
 mux2     #(12)  muxImm(LoadD, {instr[31:25], instr[11:7]}, instr[31:20], Imm);
 signext  #(12)  signext(Imm, SignImmD);
-areg            areg(clk, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE);
+areg            areg(clk, dhit, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE);
 
 // execute
 mux2     #(32)  muxALUSrcBE(ALUSrcE, rd2E, SignImmE, SrcBE);
 alu             alu(SrcAE, SrcBE, AluControlE, aluresult);
-alureg          alureg(clk, aluresult, WriteDataE, WriteRegE, ALUOutM, WriteDataM, WriteRegM);
+alureg          alureg(clk, dhit, aluresult, WriteDataE, WriteRegE, ALUOutM, WriteDataM, WriteRegM);
 
 // memory
-rdreg           rdreg(clk, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);
+rdreg           rdreg(clk, dhit, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);
 
 mux4     #(8)   muxbyte(ALUOutW[1:0], ReadDataW[31:24], ReadDataW[23:16], ReadDataW[15:8], ReadDataW[7:0], ByteResultW);
 signext  #(8)   extbytewrite(ByteResultW, ExtByteResultW);

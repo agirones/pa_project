@@ -1,6 +1,6 @@
 `include "creg.v"
 
-module maindec(input clk, reset, ihit, dhit,
+module maindec(input clk, reset, ihit,
                input [6:0] opcode,
                input [2:0] funct,
                output RegWriteW, MemWriteM, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW,
@@ -37,9 +37,9 @@ always @(*)
 	    else
 		controls <= 8'b00000000; //NOP
 
-creg #(6) cregF(clk, dhit, {RegWriteF, MemWriteF, LoadF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, ByteD, ALUSrcD, MemtoRegD});
-creg #(5) cregD(clk, dhit, {RegWriteD, MemWriteD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, ByteE, ALUSrcE, MemtoRegE});
-creg #(4) cregE(clk, dhit, {RegWriteE, MemWriteE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, ByteM, MemtoRegM});
-creg #(3) cregM(clk, dhit, {RegWriteM, ByteM, MemtoRegM}, {RegWriteW, ByteW, MemtoRegW});
+creg #(6) cregF(clk, {RegWriteF, MemWriteF, LoadF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, ByteD, ALUSrcD, MemtoRegD});
+creg #(5) cregD(clk, {RegWriteD, MemWriteD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, ByteE, ALUSrcE, MemtoRegE});
+creg #(4) cregE(clk, {RegWriteE, MemWriteE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, ByteM, MemtoRegM});
+creg #(3) cregM(clk, {RegWriteM, ByteM, MemtoRegM}, {RegWriteW, ByteW, MemtoRegW});
 
 endmodule

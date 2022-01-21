@@ -1,7 +1,7 @@
 `include "controller.v"
 `include "datapath.v"
 
-module riscv(input clk, reset, pc_en,
+module riscv(input clk, reset, pc_en, dhit,
              input [31:0] instr,
              input [31:0] ReadData,
              output [31:0] pc,
@@ -12,9 +12,9 @@ module riscv(input clk, reset, pc_en,
 wire RegWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW;
 wire [2:0] ALUControl;
 
-controller c(clk, reset, instr[6:0], instr[14:12], instr[31:25], RegWrite, MemWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW, ALUControl);
+controller c(clk, reset, pc_en, dhit, instr[6:0], instr[14:12], instr[31:25], RegWrite, MemWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW, ALUControl);
 
-datapath dp(clk, reset, pc_en, instr, RegWrite, LoadD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
+datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, LoadD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
 
 always @ (negedge clk)
     if(MemWrite)

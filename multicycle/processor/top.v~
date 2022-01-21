@@ -1,4 +1,4 @@
-`include "imem.v"
+`include "icache.v"
 `include "dmem.v"
 `include "riscv.v"
 
@@ -8,8 +8,8 @@ module top(input clk, reset,
 
 wire [31:0] instr, ReadData, pc;
 
-riscv riscv(clk, reset, instr, ReadData, pc, ALUOut, WriteData, MemWrite);
+riscv riscv(clk, reset, ihit, dhit, instr, ReadData, pc, ALUOut, WriteData, MemWrite);
 dmem dmem(clk, MemWrite, ALUOut, WriteData, ReadData);
-imem imem(pc, instr);
+icache icache(clk, pc, ihit, instr);
 
 endmodule
