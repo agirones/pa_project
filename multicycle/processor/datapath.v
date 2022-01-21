@@ -40,8 +40,11 @@ wire [4:0]  WriteRegE;
 wire [4:0]  WriteRegM;
 wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
+wire zero_;
+wire [31:0]  bj_alu_result_;
 
 // fetch
+mux2     #(32)  muxPCJumpBranch(zero_, pc_, bj_alu_result_, pcf);
 pc              pc(clk, reset, pc_, pcf);
 pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, ri, instr);
@@ -56,8 +59,9 @@ areg            areg(clk, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, W
 
 // execute
 mux2     #(32)  muxALUSrcBE(ALUSrcE, rd2E, SignImmE, SrcBE);
-alu             alu(SrcAE, SrcBE, AluControlE, aluresult);
-alureg          alureg(clk, aluresult, WriteDataE, WriteRegE, ALUOutM, WriteDataM, WriteRegM);
+alu             alu(SrcAE, SrcBE, AluControlE, aluresult, zero_flag);
+alureg          alureg(clk, aluresult, zero_flag, bj_alu_result, WriteDataE, WriteRegE, ALUOutM, zero_, bj_alu_result_, WriteDataM, WriteRegM);
+aluPC           aluPC(xxxxxxpc, SignImmE, bj_alu_result);
 
 // memory
 rdreg           rdreg(clk, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);

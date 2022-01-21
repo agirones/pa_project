@@ -5,7 +5,8 @@
 //-----------------------------------------------------
 module alu(input        [31:0]  A, B,
            input  logic [2:0]   F,
-           output reg   [31:0]  Y);
+           output reg   [31:0]  Y,
+           output reg zero_flag);
 
 wire [31:0] S, Bout;
 
@@ -21,5 +22,10 @@ always @ (*)
         3'b011: Y <= A * B;
         3'b111: Y <= S[31];
     endcase
+
+    if (Y == 0)
+            zero_flag = 1'b1;
+        else
+            zero_flag = 1'b0;
 
 endmodule
