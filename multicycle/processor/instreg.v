@@ -2,7 +2,7 @@ module instreg(input clk, dhit, input [31:0] pc, input [31:0] rd, output reg [31
 
 always @ (posedge clk) begin
     if(dhit) begin
-	    instr <= rd;
+	instr <= rd;
         pcFD <= pc;
     end
 end

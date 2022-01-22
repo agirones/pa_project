@@ -12,8 +12,8 @@ module signextD(input wire [31:0] instr,
     
     reg [11:0] tempBranch;
     reg [11:0] tempStore;
-    assign tempBranch = {instr[31], instr[7], instr[30:25], instr[11:8]}; 
-    assign tempStore = {instr[31:25], instr[11:7]};
+    assign {instr[31], instr[7], instr[30:25], instr[11:8]} = tempBranch; 
+    assign {instr[31:25], instr[11:7]} = tempStore;
 
     always @(*) begin
         if(isLoad) begin //load        

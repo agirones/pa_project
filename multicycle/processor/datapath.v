@@ -28,6 +28,7 @@ module datapath(input logic clk, reset, pc_en, dhit,
                 input logic [31:0] ReadData,
                 input logic ByteD,
                 input logic ALUSrcE,
+                input logic BranchM,
                 input logic ByteW,
                 input logic MemtoRegW,
                 output wire [31:0] pcf,
@@ -52,7 +53,7 @@ wire [31:0] pcFD, pcDE, pcEM;
 
 // fetch
 pc              pc(clk, reset, (pc_en & dhit), bjMux_PC_output, pcf);
-mux2     #(32)  muxPCJumpBranch(zero_, pc_, bj_alu_result_, bjMux_PC_output);
+mux2     #(32)  muxPCJumpBranch((BranchM & zero_), pc_, bj_alu_result_, bjMux_PC_output);
 pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, dhit, pcf, ri, instr, pcFD);
 

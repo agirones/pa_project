@@ -3,13 +3,13 @@
 module maindec(input clk, reset, ihit, dhit,
                input [6:0] opcode,
                input [2:0] funct,
-               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, LoadM, ByteW, MemtoRegW,
+               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, LoadM, ByteW, MemtoRegW,
                output [1:0] aluop);
 
 reg [9:0] controls;
 wire RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF;
 wire RegWriteD, BranchD, JumpD, ALUSrcD, MemtoRegD;
-wire RegWriteE, LoadE, ByteE, MemtoRegE;
+wire RegWriteE, LoadE, BranchE, ByteE, MemtoRegE;
 wire RegWriteM, ByteM, MemtoRegM;
 
 	assign {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
@@ -40,14 +40,14 @@ always @(*)
 				    3'b000:  controls <= 10'b10x0000010; //ADD | SUB | MUL
 				    default: controls <= 10'bxxxxxxxxxx;
 				endcase
-		    default:                 controls <= 10'bxxxxxxxxxx;
+		    default:                 controls <= 10'bxxx00xxxxx;
 		endcase
 	    else
 			controls <= 10'b0000000000; //NOP
 
 creg #(8) cregF(clk, dhit, {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD});
 creg #(8) cregD(clk, dhit, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, LoadE, BranchE, JumpE, ByteE, ALUSrcE, MemtoRegE});
-creg #(5) cregE(clk, dhit, {RegWriteE, MemWriteE, LoadE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, LoadM, ByteM, MemtoRegM});
+creg #(6) cregE(clk, dhit, {RegWriteE, MemWriteE, LoadE, BranchE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, LoadM, BranchM, ByteM, MemtoRegM});
 creg #(3) cregM(clk, dhit, {RegWriteM, ByteM, MemtoRegM}, {RegWriteW, ByteW, MemtoRegW});
 
 endmodule
