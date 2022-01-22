@@ -12,7 +12,7 @@ wire RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD;
 wire RegWriteE, MemWriteE, LoadE, ByteE, MemtoRegE;
 wire RegWriteM, ByteM, MemtoRegM;
 
-assign {RegWriteF, MemWriteF, LoadF, BranchD, JumpD, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
+	assign {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
 
 always @(*)
     if(~reset)
