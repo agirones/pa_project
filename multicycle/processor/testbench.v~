@@ -36,7 +36,7 @@ module testbench();
 //              $finish;
 //          end
       end
-      else if ($time > 1500)
+      else if ($time > 1000)
           $finish;
   end
 endmodule

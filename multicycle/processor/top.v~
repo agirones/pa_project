@@ -9,7 +9,7 @@ module top(input clk, reset,
 wire [31:0] instr, ReadData, pc;
 
 riscv riscv(clk, reset, ihit, dhit, instr, ReadData, pc, LoadW, ALUOut, WriteData, MemWrite);
-dcache dcache(clk, MemWrite, LoadW, ALUOut, WriteData, dhit, ReadData);
+dcache dcache(clk, LoadW, MemWrite, ALUOut, WriteData, dhit, ReadData);
 icache icache(clk, pc, ihit, instr);
 
 endmodule

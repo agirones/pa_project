@@ -3,7 +3,7 @@
 module maindec(input clk, reset, ihit, dhit,
                input [6:0] opcode,
                input [2:0] funct,
-               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, ByteW, MemtoRegW,
+               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, LoadM, ByteW, MemtoRegW,
                output [1:0] aluop);
 
 reg [9:0] controls;

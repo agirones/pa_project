@@ -1,4 +1,4 @@
-module alureg(input clk, 
+module alureg(input clk, en,
               input [31:0] pcDE,
               input [31:0] aluresult,
               input zero_flag,
@@ -13,6 +13,7 @@ module alureg(input clk,
               output reg [31:0] pcEM);
 
 always @ (posedge clk)
+if(en)
 begin
     aluout <= aluresult;
     zero_flagM <= zero_flag;
