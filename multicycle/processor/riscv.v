@@ -12,9 +12,9 @@ module riscv(input clk, reset, pc_en, dhit,
 wire RegWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW;
 wire [2:0] ALUControl;
 
-controller c(clk, reset, pc_en, dhit, instr[6:0], instr[14:12], instr[31:25], RegWrite, MemWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW, ALUControl);
+controller c(clk, reset, pc_en, dhit, instr[6:0], instr[14:12], instr[31:25], RegWrite, MemWrite, LoadD, BranchD, JumpD, ByteD, ALUSrcE, ByteW, MemtoRegW, ALUControl);
 
-datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, LoadD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
+datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, LoadD, BranchD, JumpD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
 
 always @ (negedge clk)
     if(MemWrite)
