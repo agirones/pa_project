@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{lscape} 
+\begin{document}
+\begin{landscape}
+\begin{center}
+    \begin{tabular}{||c c c c c c c c||} 
+         \hline
+         Instruction & Opcode & RegWrite & MemWrite & Load & Byte & ALUSrcE & MemtoReg \\ [0.5ex] 
+         \hline\hline
+         lw & 0000011 & 1 & 0 & 1 & 0 & 1 & 1 \\ 
+         \hline
+         lb & 0000011 & 1 & 0 & 1 & 1 & 1 & 1 \\ 
+         \hline
+         sw & 0100011 & 0 & 1 & 0 & 0 & 1 & x \\ 
+         \hline
+         sb & 0100011 & 0 & 1 & 0 & 1 & 1 & x \\ 
+         \hline
+         add & 0110011 & 1 & 0 & x & 0 & 0 & 0 \\ 
+         \hline
+    \end{tabular}
+\end{center}
+\end{landscape}
+\end{document}
