@@ -8,8 +8,8 @@ module maindec(input clk, reset, ihit, dhit,
 
 reg [9:0] controls;
 wire RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF;
-wire RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD;
-wire RegWriteE, MemWriteE, LoadE, ByteE, MemtoRegE;
+wire RegWriteD, BranchD, JumpD, ALUSrcD, MemtoRegD;
+wire RegWriteE, LoadE, ByteE, MemtoRegE;
 wire RegWriteM, ByteM, MemtoRegM;
 
 	assign {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
@@ -43,7 +43,7 @@ always @(*)
 		    default:                 controls <= 10'bxxxxxxxxxx;
 		endcase
 	    else
-		controls <= 10'b0000000000; //NOP
+			controls <= 10'b0000000000; //NOP
 
 creg #(8) cregF(clk, dhit, {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD});
 creg #(8) cregD(clk, dhit, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, LoadE, BranchE, JumpE, ByteE, ALUSrcE, MemtoRegE});

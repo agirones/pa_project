@@ -47,12 +47,12 @@ wire [4:0]  WriteRegM;
 wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
 wire zero_;
-wire [31:0]  bj_alu_result_;
+wire [31:0]  bj_alu_result, bj_alu_result_, bjMux_PC_output;
 wire [31:0] pcFD, pcDE, pcEM;
 
 // fetch
-pc              pc(clk, reset, (pc_en & dhit), pc_, pcf);
-mux2     #(32)  muxPCJumpBranch(zero_, pc_, bj_alu_result_, pcf);
+pc              pc(clk, reset, (pc_en & dhit), bjMux_PC_output, pcf);
+mux2     #(32)  muxPCJumpBranch(zero_, pc_, bj_alu_result_, bjMux_PC_output);
 pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, dhit, pcf, ri, instr, pcFD);
 
@@ -62,7 +62,7 @@ assign ra2 = instr[24:20];
 regfile         regfile(clk, reset, RegWriteW, ra1, ra2, WriteRegW, ResultW, rd1, rd2);
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
-signextD  #(12)  signextD(instr, LoadD, MemWriteD, BranchD, JumpD, SignImmD);
+signextD        signImm(instr, LoadD, MemWriteD, BranchD, JumpD, SignImmD);
 areg            areg(clk, dhit, pcFD, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
 
 // execute

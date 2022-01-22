@@ -8,26 +8,25 @@ module signextD(input wire [31:0] instr,
                input wire isStore,
                input wire isBranch,
                input wire isJump,
-               output reg [63:0] y);
+               output reg [31:0] y);
     
+    reg [11:0] tempBranch;
+    reg [11:0] tempStore;
     assign {instr[31], instr[7], instr[30:25], instr[11:8]} = tempBranch; 
     assign {instr[31:25], instr[11:7]} = tempStore;
 
     always @(*) begin
         if(isLoad) begin //load        
-          assign y = $signed(instr[31:20]);
+          y <= {{20{instr[31]}}, instr[31:20]};
         end
         else if(isStore) begin //store        
-            assign y = $signed(tempStore);
+            y <= {{20{instr[31]}}, tempStore};
         end
         else if(isBranch) begin //branch        
-            assign y = $signed(tempBranch);
+            y <= {{20{instr[31]}}, tempBranch};
         end
         else if(isJump) begin //jump        
-            assign y = $signed(instr[31:20]);
-        end
-        else begin
-            assign y = 0;
+            y <= {{20{instr[31]}}, instr[31:20]};
         end
     end
 

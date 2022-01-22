@@ -15,7 +15,7 @@ wire [2:0] ALUControl;
 
 controller c(clk, reset, pc_en, dhit, instr[6:0], instr[14:12], instr[31:25], RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, LoadM, ByteW, MemtoRegW, ALUControl);
 
-datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
+datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, MemWriteD, LoadD, BranchD, JumpD, ALUControl, ReadData, ByteD, ALUSrcE, ByteW, MemtoRegW, pc, ALUOut, WriteData);   
 
 always @ (negedge clk)
     if(MemWrite)
