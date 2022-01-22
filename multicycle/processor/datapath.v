@@ -10,10 +10,12 @@
 `include "regfile.v"
 `include "mux4.v"
 `include "signext.v"
+`include "signextD.v"
 `include "areg.v"
 `include "alu.v"
 `include "alureg.v"
 `include "rdreg.v"
+`include "aluPC.v"
 
 module datapath(input logic clk, reset,
                 input logic [31:0] ri,
@@ -42,26 +44,26 @@ wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
 wire zero_;
 wire [31:0]  bj_alu_result_;
+wire [31:0] pcFD, pcDE, pcEM;
 
 // fetch
 mux2     #(32)  muxPCJumpBranch(zero_, pc_, bj_alu_result_, pcf);
 pc              pc(clk, reset, pc_, pcf);
 pc_plus4        pc_plus4(pcf, pc_);
-instreg         instreg(clk, ri, instr);
+instreg         instreg(clk, pcf, ri, instr, pcFD);
 
 // register file logic
 regfile         regfile(clk, reset, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
-mux2     #(12)  muxImm(LoadD, {instr[31:25], instr[11:7]}, instr[31:20], Imm);
-signext  #(12)  signext(Imm, SignImmD);
-areg            areg(clk, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE);
+signextD  #(12)  signextD(instr, , , , SignImmD);
+areg            areg(clk, pcFD, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
 
 // execute
 mux2     #(32)  muxALUSrcBE(ALUSrcE, rd2E, SignImmE, SrcBE);
 alu             alu(SrcAE, SrcBE, AluControlE, aluresult, zero_flag);
-alureg          alureg(clk, aluresult, zero_flag, bj_alu_result, WriteDataE, WriteRegE, ALUOutM, zero_, bj_alu_result_, WriteDataM, WriteRegM);
-aluPC           aluPC(xxxxxxpc, SignImmE, bj_alu_result);
+alureg          alureg(clk, pcDE, aluresult, zero_flag, bj_alu_result, WriteDataE, WriteRegE, ALUOutM, zero_, bj_alu_result_, WriteDataM, WriteRegM, pcEM);
+aluPC           aluPC(pcDE, SignImmE, bj_alu_result);
 
 // memory
 rdreg           rdreg(clk, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);
