@@ -1,0 +1,5 @@
+multicycle/processor/*.v~
+multicycle/processor/*.v.un~
+multicycle/processor/*.v.swp
+multicycle/processor/*.out
+multicycle/processor/*.dat~
