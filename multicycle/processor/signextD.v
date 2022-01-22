@@ -13,18 +13,18 @@ module signextD(input wire [31:0] instr,
     assign {instr[31], instr[7], instr[30:25], instr[11:8]} = tempBranch; 
     assign {instr[31:25], instr[11:7]} = tempStore;
 
-    always(*) begin
+    always @(*) begin
         if(isLoad) begin //load        
-          assign y = {{52{instr[31]}}, instr[31:20]};
+          assign y = $signed(instr[31:20]);
         end
         else if(isStore) begin //store        
-            assign y = {{52{instr[31]}}, tempStore};
+            assign y = $signed(tempStore);
         end
         else if(isBranch) begin //branch        
-            assign y = {{52{instr[31]}}, tempBranch};
+            assign y = $signed(tempBranch);
         end
         else if(isJump) begin //jump        
-            assign y = {{52{instr[31]}}, instr[31:20]};
+            assign y = $signed(instr[31:20]);
         end
         else begin
             assign y = 0;

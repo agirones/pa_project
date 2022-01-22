@@ -17,10 +17,13 @@
 `include "rdreg.v"
 `include "aluPC.v"
 
-module datapath(input logic clk, reset,
+module datapath(input logic clk, reset, pc_en,
                 input logic [31:0] ri,
                 input logic RegWriteW,
+                input logic MemWriteD,
                 input logic LoadD,
+                input logic BranchD, 
+                input logic JumpD, 
                 input logic [2:0] AluControlE,
                 input logic [31:0] ReadData,
                 input logic ByteD,
@@ -56,7 +59,7 @@ instreg         instreg(clk, pcf, ri, instr, pcFD);
 regfile         regfile(clk, reset, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
-signextD  #(12)  signextD(instr, , , , SignImmD);
+signextD  #(12)  signextD(instr, LoadD, MemWriteD, BranchD, JumpD, SignImmD);
 areg            areg(clk, pcFD, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
 
 // execute
