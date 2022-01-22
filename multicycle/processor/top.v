@@ -1,5 +1,5 @@
 `include "icache.v"
-`include "dmem.v"
+`include "dcache.v"
 `include "riscv.v"
 
 module top(input clk, reset,
@@ -7,11 +7,9 @@ module top(input clk, reset,
            output MemWrite);
 
 wire [31:0] instr, ReadData, pc;
-wire dhit;
-dhit = 1;
 
-riscv riscv(clk, reset, ihit, dhit, instr, ReadData, pc, ALUOut, WriteData, MemWrite);
-dmem dmem(clk, MemWrite, ALUOut, WriteData, ReadData);
+riscv riscv(clk, reset, ihit, dhit, instr, ReadData, pc, LoadW, ALUOut, WriteData, MemWrite);
+dcache dcache(clk, MemWrite, LoadW, ALUOut, WriteData, dhit, ReadData);
 icache icache(clk, pc, ihit, instr);
 
 endmodule

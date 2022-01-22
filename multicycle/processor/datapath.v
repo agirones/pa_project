@@ -15,7 +15,7 @@
 `include "alureg.v"
 `include "rdreg.v"
 
-module datapath(input logic clk, reset, pc_en,
+module datapath(input logic clk, reset, pc_en, dhit,
                 input logic [31:0] ri,
                 input logic RegWriteW,
                 input logic LoadD,
@@ -32,6 +32,7 @@ module datapath(input logic clk, reset, pc_en,
 wire [31:0]  pc_;
 wire [31:0]  instr;
 wire [4:0]   WriteRegW;
+wire [4:0]  ra1, ra2;
 wire [31:0]  rd1, rd2;
 wire [11:0]  Imm;
 wire [31:0]  SignImmD, ByteStoreExt, StoreDataD;
@@ -47,7 +48,9 @@ pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, dhit, ri, instr);
 
 // register file logic
-regfile         regfile(clk, reset, RegWriteW, instr[19:15], instr[24:20], WriteRegW, ResultW, rd1, rd2);
+assign ra1 = instr[19:15];
+assign ra2 = instr[24:20];
+regfile         regfile(clk, reset, RegWriteW, ra1, ra2, WriteRegW, ResultW, rd1, rd2);
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
 mux2     #(12)  muxImm(LoadD, {instr[31:25], instr[11:7]}, instr[31:20], Imm);

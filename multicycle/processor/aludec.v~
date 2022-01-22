@@ -19,7 +19,7 @@ always @(*)
             endcase
         endcase
 
-creg #(3) cregD(clk, 1'b1, alucontrolF, alucontrolD);
-creg #(3) cregE(clk, 1'b1, alucontrolD, alucontrolE);
+creg #(3) cregD(clk, alucontrolF, alucontrolD);
+creg #(3) cregE(clk, alucontrolD, alucontrolE);
 
 endmodule

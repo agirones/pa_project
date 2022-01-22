@@ -9,11 +9,13 @@ module imem(input logic [31:0] a,
         $readmemh("memfile.dat", RAM);
 
     always @ (*)
+    begin
 	add0 = (a>>4)<<2;
 	add1 = add0 + 32'h1;
 	add2 = add0 + 32'h2;
 	add3 = add0 + 32'h3;
 
-        rd <= {RAM[add0], RAM[add1], RAM[add2], RAM[add3]};
+        rd <= {RAM[add3], RAM[add2], RAM[add1], RAM[add0]};
+    end
 
 endmodule
