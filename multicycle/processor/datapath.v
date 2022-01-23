@@ -88,6 +88,7 @@ aluPC           aluPC(pcDE, SignImmE, b_alu_result);
 alureg          alureg(clk, (dhit & ~alu_busy), pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop, 
                  ALUOutM, zero_, b_alu_result_, WriteDataM, WriteRegM, pcEM);
 forwardUnit     forwardUnit(ra1_out, ra2_out, RegWriteM, RegWriteW, WriteRegM, WriteRegW, forwardA, forwardB);
+//forwardUnit     forwardUnit(SrcAE, rd2E, aluout, xxx , xxx, ALUOutW, xxx);
 
 
 // memory
