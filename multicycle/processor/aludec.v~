@@ -1,4 +1,4 @@
-module aludec(input clk, reset, dhit, alu_busy,
+module aludec(input clk, reset,
               input [6:0] funct7,
               input [1:0] aluop,
               output [2:0] alucontrolE);

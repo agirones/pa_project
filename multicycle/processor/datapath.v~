@@ -32,7 +32,6 @@ module datapath(input logic clk, reset, pc_en, dhit,
                 input logic ByteW,
                 input logic MemtoRegW,
                 output wire [31:0] pcf,
-		output wire        alu_busy,
                 output wire [31:0] ALUOutM,
                 output wire [31:0] WriteDataM);
 

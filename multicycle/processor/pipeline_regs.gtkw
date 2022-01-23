@@ -1,30 +1,100 @@
 [*]
 [*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
-[*] Sat Jan 22 09:05:14 2022
+[*] Sun Jan 23 15:35:43 2022
 [*]
 [dumpfile] "C:\Users\ROSA\Documents\Uni\Master\q1\pa\pa_project\multicycle\processor\testbench.vcd"
-[dumpfile_mtime] "Sat Jan 22 07:55:42 2022"
-[dumpfile_size] 3873
+[dumpfile_mtime] "Sun Jan 23 15:31:13 2022"
+[dumpfile_size] 5120
 [savefile] "C:\Users\ROSA\Documents\Uni\Master\q1\pa\pa_project\multicycle\processor\pipeline_regs.gtkw"
-[timestart] 410
+[timestart] 473
 [size] 1366 681
 [pos] -1 -1
-*-4.983407 430 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-4.983407 540 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [treeopen] testbench.dut.
 [treeopen] testbench.dut.dcache.
 [treeopen] testbench.dut.icache.
 [treeopen] testbench.dut.riscv.
 [treeopen] testbench.dut.riscv.dp.
-[sst_width] 34
+[sst_width] 254
 [signals_width] 222
-[sst_expanded] 0
+[sst_expanded] 1
 [sst_vpaned_height] 184
 @28
 testbench.dut.icache.clk[0]
-@22
+@c00022
 [color] 2
 testbench.dut.pc[31:0]
+@28
+[color] 2
+(0)testbench.dut.pc[31:0]
+[color] 2
+(1)testbench.dut.pc[31:0]
+[color] 2
+(2)testbench.dut.pc[31:0]
+[color] 2
+(3)testbench.dut.pc[31:0]
+[color] 2
+(4)testbench.dut.pc[31:0]
+[color] 2
+(5)testbench.dut.pc[31:0]
+[color] 2
+(6)testbench.dut.pc[31:0]
+[color] 2
+(7)testbench.dut.pc[31:0]
+[color] 2
+(8)testbench.dut.pc[31:0]
+[color] 2
+(9)testbench.dut.pc[31:0]
+[color] 2
+(10)testbench.dut.pc[31:0]
+[color] 2
+(11)testbench.dut.pc[31:0]
+[color] 2
+(12)testbench.dut.pc[31:0]
+[color] 2
+(13)testbench.dut.pc[31:0]
+[color] 2
+(14)testbench.dut.pc[31:0]
+[color] 2
+(15)testbench.dut.pc[31:0]
+[color] 2
+(16)testbench.dut.pc[31:0]
+[color] 2
+(17)testbench.dut.pc[31:0]
+[color] 2
+(18)testbench.dut.pc[31:0]
+[color] 2
+(19)testbench.dut.pc[31:0]
+[color] 2
+(20)testbench.dut.pc[31:0]
+[color] 2
+(21)testbench.dut.pc[31:0]
+[color] 2
+(22)testbench.dut.pc[31:0]
+[color] 2
+(23)testbench.dut.pc[31:0]
+[color] 2
+(24)testbench.dut.pc[31:0]
+[color] 2
+(25)testbench.dut.pc[31:0]
+[color] 2
+(26)testbench.dut.pc[31:0]
+[color] 2
+(27)testbench.dut.pc[31:0]
+[color] 2
+(28)testbench.dut.pc[31:0]
+[color] 2
+(29)testbench.dut.pc[31:0]
+[color] 2
+(30)testbench.dut.pc[31:0]
+[color] 2
+(31)testbench.dut.pc[31:0]
+@1401200
+-group_end
+@28
+testbench.dut.riscv.dp.pc.en[0]
+@22
 [color] 7
 testbench.dut.riscv.dp.instr[31:0]
 @24
@@ -36,16 +106,16 @@ testbench.dut.riscv.dp.ra2[4:0]
 testbench.dut.riscv.dp.SrcAE[31:0]
 @24
 testbench.dut.riscv.dp.rd2E[31:0]
-@29
+@28
 [color] 5
 testbench.dut.riscv.c.MemWrite[0]
-@25
+@24
 [color] 5
 testbench.dut.riscv.dp.ALUOutM[31:0]
-@29
+@28
 [color] 5
 testbench.dut.dhit[0]
-@25
+@24
 [color] 5
 testbench.dut.ReadData[31:0]
 [color] 5
@@ -53,7 +123,7 @@ testbench.dut.riscv.dp.WriteDataM[31:0]
 @28
 [color] 3
 testbench.dut.riscv.dp.RegWriteW[0]
-@c00024
+@c00025
 [color] 3
 testbench.dut.riscv.dp.WriteRegW[4:0]
 @28
@@ -62,9 +132,9 @@ testbench.dut.riscv.dp.WriteRegW[4:0]
 (2)testbench.dut.riscv.dp.WriteRegW[4:0]
 (3)testbench.dut.riscv.dp.WriteRegW[4:0]
 (4)testbench.dut.riscv.dp.WriteRegW[4:0]
-@1401200
+@1401205
 -group_end
-@c00022
+@c00024
 [color] 3
 testbench.dut.riscv.dp.ResultW[31:0]
 @28
@@ -100,7 +170,7 @@ testbench.dut.riscv.dp.ResultW[31:0]
 (29)testbench.dut.riscv.dp.ResultW[31:0]
 (30)testbench.dut.riscv.dp.ResultW[31:0]
 (31)testbench.dut.riscv.dp.ResultW[31:0]
-@1401200
+@1401204
 -group_end
 [pattern_trace] 1
 [pattern_trace] 0
