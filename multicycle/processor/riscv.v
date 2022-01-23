@@ -14,9 +14,9 @@ wire RegWrite, LoadD, ByteD, ALUSrcE, ByteW, MemtoRegW;
 wire [2:0] ALUControl;
 
 controller c(clk, reset, pc_en, dhit, alu_busy, instr[6:0], instr[14:12], instr[31:25], sendNop,
-		RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW, ALUControl);
+		RegWrite, RegWriteM, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW, ALUControl);
 
-datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, MemWriteD, LoadD, BranchD, JumpD, ALUControl, ReadData, ByteD, ALUSrcE, BranchM, JumpM, ByteW, 
+datapath dp(clk, reset, pc_en, dhit, instr, RegWrite, RegWriteM, MemWriteD, LoadD, BranchD, JumpD, ALUControl, ReadData, ByteD, ALUSrcE, BranchM, JumpM, ByteW, 
 		MemtoRegW, pc, alu_busy, ALUOut, WriteData, sendNop);   
 
 always @ (negedge clk)
