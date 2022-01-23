@@ -6,15 +6,14 @@
 module mux4Full #(parameter WIDTH=32)
              (input logic [1:0] s,
               input logic [WIDTH-1:0] d3, d2, d1, d0,
-              output wire [WIDTH-1:0] y);
+              output reg [WIDTH-1:0] Y);
 
-    wire [WIDTH-1:0] i0, i1;
-
-    mux2 #(32) mux0(s[1], d0, d2, i0);
-    mux2 #(32) mux1(s[1], d1, d3, i1);
-    mux2 #(32) mux2(s[0], i0, i1, y);
 
     always@(*)
-        $display("In mux4 at %d: d0=%d d1=%d d2=%d d3=%d y=%d, s=%b", $time, d0, d1, d2, d3, y, s);
-
+        case(s)
+            2'b00: Y <= d0;
+            2'b01: Y <= d1;
+            2'b10: Y <= d2;
+            default: Y <= d3;
+        endcase
 endmodule

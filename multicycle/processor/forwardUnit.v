@@ -1,10 +1,10 @@
 
-module forwardUnit(input wire [31:0] r1A,
-                   input wire [31:0] r1B,
+module forwardUnit(input wire [4:0] r1A,
+                   input wire [4:0] r1B,
                    input wire regWriteM,
                    input wire regWriteW,
-                   input wire [31:0] rd_M,
-                   input wire [31:0] rd_W,
+                   input wire [4:0] rd_M,
+                   input wire [4:0] rd_W,
                    output wire[1:0] ForwardA,
                    output wire[1:0] ForwardB);
     

@@ -4,11 +4,15 @@ module areg(input clk, en,
             input [4:0] rd,
             input [31:0] SignImm_,
             input sendNop,
+            input [4:0] ra1,
+            input [4:0] ra2,
             output reg [31:0] SrcAE, SrcBE,
             output reg [4:0] WriteRegE,
             output reg [31:0] WriteDataE,
             output reg [31:0] SignImm,
-            output reg [31:0] pcDE);
+            output reg [31:0] pcDE,
+            output reg [4:0] ra1_out,
+            output reg [4:0] ra2_out);
 
 always @ (posedge clk)
 if(en) begin
@@ -19,6 +23,8 @@ if(en) begin
         WriteDataE <= 0;
         SignImm <= 0;
         pcDE <= pcFD; 
+        ra1_out <= 0;
+        ra2_out <= 0;
     end
     else begin
         SrcAE <= rd1;
@@ -27,6 +33,8 @@ if(en) begin
         WriteDataE <= rd2;
         SignImm <= SignImm_;
         pcDE <= pcFD;        
+        ra1_out <= ra1;
+        ra2_out <= ra2;
     end
 end
 

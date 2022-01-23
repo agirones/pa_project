@@ -58,6 +58,7 @@ wire [31:0]  b_alu_result, b_alu_result_, bMux_PC_output, finalPC;
 wire [31:0] pcFD, pcDE, pcEM;
 wire [1:0] forwardA, forwardB;
 wire [31:0] fwAoutput, fwBoutput;
+wire [4:0] ra1_out, ra2_out;
 
 
 // fetch
@@ -75,8 +76,8 @@ regfile         regfile(clk, reset, RegWriteW, ra1, ra2, WriteRegW, ResultW, rd1
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
 signextD        signImm(instr, LoadD, MemWriteD, BranchD, JumpD, SignImmD);
-areg            areg(clk, (dhit & ~alu_busy), pcFD, rd1, StoreDataD, instr[11:7], SignImmD, sendNop, 
-                 SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
+areg            areg(clk, (dhit & ~alu_busy), pcFD, rd1, StoreDataD, instr[11:7], SignImmD, sendNop, ra1, ra2,
+                 SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE, ra1_out, ra2_out);
 
 // execute
 mux4Full     #(32)  fwA(forwardA, 32'd0, ALUOutM, ResultW, SrcAE, fwAoutput);
@@ -84,9 +85,9 @@ mux4Full     #(32)  fwB(forwardB, 32'd0, ALUOutM, ResultW, rd2E, fwBoutput);
 mux2     #(32)  muxALUSrcBE(ALUSrcE, fwBoutput, SignImmE, SrcBE);
 alu             alu(clk, fwAoutput, SrcBE, AluControlE, aluresult, zero_flag, alu_busy);
 aluPC           aluPC(pcDE, SignImmE, b_alu_result);
-alureg          alureg(clk, (dhit & ~alu_busy), pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop,
+alureg          alureg(clk, (dhit & ~alu_busy), pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop, 
                  ALUOutM, zero_, b_alu_result_, WriteDataM, WriteRegM, pcEM);
-forwardUnit     forwardUnit(SrcAE, rd2E, RegWriteM, RegWriteW, ALUOutM, ResultW, forwardA, forwardB);
+forwardUnit     forwardUnit(ra1_out, ra2_out, RegWriteM, RegWriteW, WriteRegM, WriteRegW, forwardA, forwardB);
 
 
 // memory
