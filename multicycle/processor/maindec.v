@@ -4,14 +4,14 @@ module maindec(input clk, reset, ihit, dhit,
                input [6:0] opcode,
                input [2:0] funct,
 			   input sendNop,
-               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW,
+               output RegWriteW, RegWriteM, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW, 
                output [1:0] aluop);
 
 reg [9:0] controls;
 wire RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF;
 wire RegWriteD, BranchD, JumpD, ALUSrcD, MemtoRegD;
 wire RegWriteE, LoadE, BranchE, JumpE, ByteE, MemtoRegE;
-wire RegWriteM, ByteM, MemtoRegM;
+wire ByteM, MemtoRegM;
 
 	assign {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
 
