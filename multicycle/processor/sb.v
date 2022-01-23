@@ -16,6 +16,12 @@ initial begin
 end
 
 always @ (*) begin
+	$display("MEMWRITE value=%b , LOAD value=%b", MemWrite, Load);
+	$display("SB[0][63:0] value=%b , SB[0][64] value=%b", SB[0][63:0], SB[0][64]);
+	$display("SB[1][63:0] value=%b , SB[1][64] value=%b", SB[1][63:0], SB[1][64]);
+	$display("SB[2][63:0] value=%b , SB[2][64] value=%b", SB[2][63:0], SB[2][64]);
+	$display("SB[3][63:0] value=%b , SB[3][64] value=%b", SB[3][63:0], SB[3][64]);
+	$display("//////////////////////////////////////////////////////////////////////////////////////////////");
     case({MemWrite, Load})
 	2'b00: begin //ALU operation
             hit <= 0;
