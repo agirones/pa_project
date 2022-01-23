@@ -1,22 +1,27 @@
 
 module forwardUnit(input wire [31:0] r1A,
                    input wire [31:0] r1B,
-                   input wire [31:0] rD_M,
-                   input wire isLoadM,
-                   input wire isStoreM,
-                   input wire [31:0] rD_WB,
-                   input wire isLoadWB, 
-                   output wire[1:0] selectorRd1,
-                   output wire[1:0] selectorRd2);
+                   input wire regWriteM,
+                   input wire regWriteW,
+                   input wire [31:0] rd_M,
+                   input wire [31:0] rd_W,
+                   output wire[1:0] ForwardA,
+                   output wire[1:0] ForwardB);
     
+    reg[1:0] solA, solB;
+
 
     always @(*) begin
-        if(r1A == rD_M && ~load) begin 
-            assign selectorRd1 = 2'b10;
-        end
-        else if(r1A == rD_WB && ) begin
-            
-        end
+        if(regWriteM == 1 && rd_M == r1A) solA = 2'b10; 
+        else if (regWriteW == 1 && rd_W == r1A)  solA = 2'b01; 
+        else solA = 2'b00; 
+
+        if(regWriteM == 1 && rd_M == r1B) solB = 2'b10; 
+        else if (regWriteW == 1 && rd_W == r1B) solB = 2'b01; 
+        else solB = 2'b00; 
     end
+
+    assign ForwardA = solA;
+    assign ForwardB = solB;
 
 endmodule

@@ -17,6 +17,7 @@
 `include "rdreg.v"
 `include "aluPC.v"
 `include "forwardUnit.v"
+`include "mux4Full.v"
 
 module datapath(input logic clk, reset, pc_en, dhit,
                 input logic [31:0] ri,
@@ -55,6 +56,9 @@ wire [7:0]  ByteResultW;
 wire zero_;
 wire [31:0]  b_alu_result, b_alu_result_, bMux_PC_output, finalPC;
 wire [31:0] pcFD, pcDE, pcEM;
+wire [1:0] forwardA, forwardB;
+wire [31:0] fwAoutput, fwBoutput;
+
 
 // fetch
 pc              pc(clk, reset, (pc_en & dhit & ~alu_busy), finalPC, pcf);
@@ -75,12 +79,14 @@ areg            areg(clk, (dhit & ~alu_busy), pcFD, rd1, StoreDataD, instr[11:7]
                  SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
 
 // execute
-mux2     #(32)  muxALUSrcBE(ALUSrcE, rd2E, SignImmE, SrcBE);
-alu             alu(clk, SrcAE, SrcBE, AluControlE, aluresult, zero_flag, alu_busy);
+mux4Full     #(32)  fwA(forwardA, 32'd0, ALUOutM, ResultW, SrcAE, fwAoutput);
+mux4Full     #(32)  fwB(forwardB, 32'd0, ALUOutM, ResultW, rd2E, fwBoutput);
+mux2     #(32)  muxALUSrcBE(ALUSrcE, fwBoutput, SignImmE, SrcBE);
+alu             alu(clk, fwAoutput, SrcBE, AluControlE, aluresult, zero_flag, alu_busy);
 aluPC           aluPC(pcDE, SignImmE, b_alu_result);
 alureg          alureg(clk, (dhit & ~alu_busy), pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop,
                  ALUOutM, zero_, b_alu_result_, WriteDataM, WriteRegM, pcEM);
-//forwardUnit     forwardUnit(SrcAE, rd2E, aluout, xxx , xxx, ALUOutW, xxx);
+forwardUnit     forwardUnit(SrcAE, rd2E, RegWriteM, RegWriteW, ALUOutM, ResultW, forwardA, forwardB);
 
 
 // memory
