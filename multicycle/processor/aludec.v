@@ -1,6 +1,7 @@
 module aludec(input clk, reset,
               input [6:0] funct7,
               input [1:0] aluop,
+              input sendNop,
               output [2:0] alucontrolE);
 
 reg  [2:0] alucontrolF;  
@@ -19,7 +20,7 @@ always @(*)
             endcase
         endcase
 
-creg #(3) cregD(clk, 1'b1, alucontrolF, alucontrolD);
-creg #(3) cregE(clk, 1'b1, alucontrolD, alucontrolE);
+creg #(3) cregD(clk, 1'b1, sendNop, alucontrolF, alucontrolD);
+creg #(3) cregE(clk, 1'b1, sendNop, alucontrolD, alucontrolE);
 
 endmodule

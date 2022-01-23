@@ -3,16 +3,22 @@
 module maindec(input clk, reset, ihit, dhit,
                input [6:0] opcode,
                input [2:0] funct,
-               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, LoadM, ByteW, MemtoRegW,
+			   input sendNop,
+               output RegWriteW, MemWriteM, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW,
                output [1:0] aluop);
 
 reg [9:0] controls;
 wire RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF;
 wire RegWriteD, BranchD, JumpD, ALUSrcD, MemtoRegD;
-wire RegWriteE, LoadE, BranchE, ByteE, MemtoRegE;
+wire RegWriteE, LoadE, BranchE, JumpE, ByteE, MemtoRegE;
 wire RegWriteM, ByteM, MemtoRegM;
 
 	assign {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF, aluop} = controls;
+
+initial begin
+    controls <= 10'b0000000000;
+end
+
 
 always @(*)
     if(~reset)
@@ -32,8 +38,8 @@ always @(*)
 				    3'b000:  controls <= 10'b0001000000; //BEQ
 				    default: controls <= 10'bxxxxxxxxxx;
 				endcase
-			7'b1100011: case(funct)
-				    3'b000:  controls <= 10'b0000100000; //JALR
+			7'b1100111: case(funct)
+				    3'b000:  controls <= 10'b0000101000; //JALR
 				    default: controls <= 10'bxxxxxxxxxx;
 				endcase
 		    7'b0110011: case(funct)
@@ -44,10 +50,12 @@ always @(*)
 		endcase
 	    else
 			controls <= 10'b0000000000; //NOP
+	else
+		controls <= 10'b0000000000;
 
-creg #(8) cregF(clk, dhit, {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD});
-creg #(8) cregD(clk, dhit, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, LoadE, BranchE, JumpE, ByteE, ALUSrcE, MemtoRegE});
-creg #(6) cregE(clk, dhit, {RegWriteE, MemWriteE, LoadE, BranchE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, LoadM, BranchM, ByteM, MemtoRegM});
-creg #(3) cregM(clk, dhit, {RegWriteM, ByteM, MemtoRegM}, {RegWriteW, ByteW, MemtoRegW});
+creg #(8) cregF(clk, dhit, sendNop, {RegWriteF, MemWriteF, LoadF, BranchF, JumpF, ByteF, ALUSrcF, MemtoRegF}, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD});
+creg #(8) cregD(clk, dhit, sendNop, {RegWriteD, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcD, MemtoRegD}, {RegWriteE, MemWriteE, LoadE, BranchE, JumpE, ByteE, ALUSrcE, MemtoRegE});
+creg #(7) cregE(clk, dhit, sendNop, {RegWriteE, MemWriteE, LoadE, BranchE, JumpE, ByteE, MemtoRegE}, {RegWriteM, MemWriteM, LoadM, BranchM, JumpM, ByteM, MemtoRegM});
+creg #(3) cregM(clk, dhit, sendNop, {RegWriteM, ByteM, MemtoRegM}, {RegWriteW, ByteW, MemtoRegW});
 
 endmodule

@@ -5,14 +5,17 @@ module controller(input clk, reset, ihit, dhit,
                   input [6:0] opcode,
                   input [2:0] funct3,
                   input [6:0] funct7,
-output RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, LoadM, ByteW, MemtoRegW,
+                  input sendNop,
+output RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW,
                   output [2:0] ALUControl);
 
 wire [1:0] aluop;
 
-maindec maindec(clk, reset, ihit, dhit, opcode, funct3, RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, LoadM, ByteW, MemtoRegW, aluop);
+maindec maindec(clk, reset, ihit, dhit, opcode, funct3, sendNop, 
+RegWrite, MemWrite, MemWriteD, LoadD, BranchD, JumpD, ByteD, ALUSrcE, BranchM, JumpM, LoadM, ByteW, MemtoRegW, aluop);
 
-aludec aludec(clk, reset, funct7, aluop, ALUControl);
+aludec aludec(clk, reset, funct7, aluop, sendNop,
+ALUControl);
 
 always @(negedge clk)
 begin

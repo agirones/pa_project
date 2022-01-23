@@ -21,6 +21,8 @@ module regfile(input logic clk,
     // on falling edge of clk
     always @(posedge clk, reset)
     begin
+        rf[5'h0] <= 32'b0; 
+        $display("Reg x5 value=%d and reg x9 value=%d", rf[5'h5], rf[5'h9]);
         if(reset)
         begin
             rf[5'h0] <= 32'b0;     
