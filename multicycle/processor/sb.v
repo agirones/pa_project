@@ -15,7 +15,7 @@ initial begin
     hit <= 0;
 end
 
-always @ (*) begin
+always @ (posedge clk) begin
     case({MemWrite, Load})
 	2'b00: begin //ALU operation
             hit <= 0;
@@ -32,32 +32,36 @@ always @ (*) begin
 		if(full) begin
 		    sb_write_cache <= 1;
 
-	            {sb_address, sb_data} = SB[head][63:0];
-	            SB[head][64] = 0;
-	            head = head + 1;	
-		    //if(~dhit) @(posedge dhit);
+	            SB[head][64] <= 0;
+	            head <= head + 1;	
+		    if(~dhit) @(posedge dhit) begin
+	                {sb_address, sb_data} <= SB[head][63:0];
 
-	            {sb_address, sb_data} = SB[head][63:0];
-	            SB[head][64] = 0;
-	            head = head + 1;	
-		    //if(~dhit) @(posedge dhit);
+	            SB[head][64] <= 0;
+	            head <= head + 1;	
+		    if(~dhit) @(posedge dhit) begin
+	                {sb_address, sb_data} <= SB[head][63:0];
 
-	            {sb_address, sb_data} = SB[head][63:0];
-	            SB[head][64] = 0;
-	            head = head + 1;	
-		    //if(~dhit) @(posedge dhit);
+	            SB[head][64] <= 0;
+	            head <= head + 1;	
+		    if(~dhit) @(posedge dhit) begin
+	                {sb_address, sb_data} <= SB[head][63:0];
 
-	            {sb_address, sb_data} = SB[head][63:0];
-	            SB[head][64] = 0;
-	            head = head + 1;	
-		    //if(~dhit) @(posedge dhit);
+	            SB[head][64] <= 0;
+	            head <= head + 1;	
+		    if(~dhit) @(posedge dhit) begin
+	                {sb_address, sb_data} <= SB[head][63:0];
+	    	    end
+	            end
+	    	    end
+		    end
 
 		    full <= 0;
 	        end
-		else if(head == (tail + 1)) begin
+		else if(head[0] == tail[0] && head[1] == ~tail[1] ) begin
 		    sb_write_cache <= 0; 
 		    full <= 1;
-		    SB[tail + 1] <= {1'b1, a, data};
+		    SB[tail] <= {1'b1, a, data};
 		    tail <= tail + 1;
 	        end
 		else begin
@@ -95,6 +99,14 @@ always @ (*) begin
 
 	endcase
 
+end
+always @ (*) begin
+    $display("//////////////////////At %d, MemWrite, Load = %b", $time, {MemWrite, Load});
+    $display("//////////////////////At %d, head = %b, tail = %b", $time, head, tail);
+    $display("//////////////////////At %d, SB[0] = %h", $time, SB[0]);
+    $display("//////////////////////At %d, SB[1] = %h", $time, SB[1]);
+    $display("//////////////////////At %d, SB[2] = %h", $time, SB[2]);
+    $display("//////////////////////At %d, SB[3] = %h", $time, SB[3]);
 end
 
 

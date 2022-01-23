@@ -26,7 +26,6 @@ module dcache(input clk, sb_write, load, sb_hit,
 	    dcache[1][154] <= 0;
 	    dcache[2][154] <= 0;
 	    dcache[3][154] <= 0;
-	    hit <= 1; //TODO
     end
 
     always @ (*)
@@ -58,8 +57,9 @@ module dcache(input clk, sb_write, load, sb_hit,
 			    hit <= 0;
 			    dcache[0][154] <= 1;
 			    dcache[0][153:128] <= a[31:6];
-			    repeat (10) @ (posedge clk);
-			    dcache[0][127:0] <= data;
+			    repeat (10) @ (posedge clk) begin
+			        dcache[0][127:0] <= data;
+			    end
 			    hit <= 1;
 			end
 
@@ -90,8 +90,9 @@ module dcache(input clk, sb_write, load, sb_hit,
 			    hit <= 0;
 			    dcache[1][154] <= 1;
 			    dcache[1][153:128] <= a[31:6];
-			    repeat (10) @ (posedge clk);
-			    dcache[1][127:0] <= data;
+			    repeat (10) @ (posedge clk) begin
+			        dcache[1][127:0] <= data;
+			    end
 			    hit <= 1;
 			end
 
@@ -122,8 +123,9 @@ module dcache(input clk, sb_write, load, sb_hit,
 			    hit <= 0;
 			    dcache[2][154] <= 1;
 			    dcache[2][153:128] <= a[31:6];
-			    repeat (10) @ (posedge clk);
-			    dcache[2][127:0] <= data;
+			    repeat (10) @ (posedge clk) begin
+			        dcache[2][127:0] <= data;
+		            end
 			    hit <= 1;
 			end
 
@@ -154,8 +156,9 @@ module dcache(input clk, sb_write, load, sb_hit,
 			    hit <= 0;
 			    dcache[3][154] <= 1;
 			    dcache[3][153:128] <= a[31:6];
-			    repeat (10) @ (posedge clk);
-			    dcache[3][127:0] <= data;
+			    repeat (10) @ (posedge clk) begin
+			        dcache[3][127:0] <= data;
+			    end
 			    hit <= 1;
 			end
 
@@ -180,5 +183,12 @@ module dcache(input clk, sb_write, load, sb_hit,
 		    end
 		endcase
     end
+always @ (*) begin
+    $display("**********************At %d, set = %b, a[3:2] = %b", $time, set, a[3:2]);
+    $display("**********************At %d, valid[0] = %b, data[0]= %h", $time, dcache[0][154], dcache[0][127:0]);
+    $display("**********************At %d, valid[1] = %b, data[1]= %h", $time, dcache[1][154], dcache[1][127:0]);
+    $display("**********************At %d, valid[2] = %b, data[2]= %h", $time, dcache[2][154], dcache[2][127:0]);
+    $display("**********************At %d, valid[3] = %b, data[3]= %h", $time, dcache[3][154], dcache[3][127:0]);
+end
 
 endmodule

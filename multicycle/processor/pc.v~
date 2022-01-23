@@ -4,7 +4,7 @@ always@(posedge clk, posedge reset)
 begin
     if(reset)
         pc <= 32'b0;
-    else if (en | en === 1'bx)
+    else if (en)
         pc <= pc_;
 end
 

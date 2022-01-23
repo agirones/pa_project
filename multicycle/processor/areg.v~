@@ -10,7 +10,7 @@ module areg(input clk, en,
             output reg [31:0] pcDE);
 
 always @ (posedge clk)
-if(en | en === 1'bx)
+if(en)
 begin
     SrcAE <= rd1;
     SrcBE <= rd2;

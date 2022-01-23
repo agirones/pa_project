@@ -4,7 +4,7 @@ module creg #(parameter WIDTH=2)
               output reg [WIDTH-1:0] controls);
 
 always @(posedge clk)
-if(en)
+if(en | en === 1'bx)
     controls <= controls_;
 
 endmodule

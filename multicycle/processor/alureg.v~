@@ -13,7 +13,7 @@ module alureg(input clk, en,
               output reg [31:0] pcEM);
 
 always @ (posedge clk)
-if(en | en === 1'bx)
+if(en)
 begin
     aluout <= aluresult;
     zero_flagM <= zero_flag;
