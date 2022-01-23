@@ -16,6 +16,7 @@
 `include "alureg.v"
 `include "rdreg.v"
 `include "aluPC.v"
+`include "forwardUnit.v"
 
 module datapath(input logic clk, reset, pc_en, dhit,
                 input logic [31:0] ri,
@@ -77,6 +78,7 @@ alu             alu(SrcAE, SrcBE, AluControlE, aluresult, zero_flag);
 alureg          alureg(clk, dhit, pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop,
                  ALUOutM, zero_, b_alu_result_, WriteDataM, WriteRegM, pcEM);
 aluPC           aluPC(pcDE, SignImmE, b_alu_result);
+forwardUnit     forwardUnit(SrcAE, rd2E, aluout, xxx, xxx, ALUOutW, xxx);
 
 // memory
 rdreg           rdreg(clk, dhit, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);
