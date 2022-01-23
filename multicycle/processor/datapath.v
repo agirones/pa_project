@@ -29,11 +29,13 @@ module datapath(input logic clk, reset, pc_en, dhit,
                 input logic ByteD,
                 input logic ALUSrcE,
                 input logic BranchM,
+                input logic JumpM,
                 input logic ByteW,
                 input logic MemtoRegW,
                 output wire [31:0] pcf,
                 output wire [31:0] ALUOutM,
-                output wire [31:0] WriteDataM);
+                output wire [31:0] WriteDataM,
+                output wire sendNop);
 
 wire [31:0]  pc_;
 wire [31:0]  instr;
@@ -48,14 +50,16 @@ wire [4:0]  WriteRegM;
 wire [31:0]  ResultW, ExtByteResultW, WriteDataRFW, ALUOutW, ReadDataW;
 wire [7:0]  ByteResultW;
 wire zero_;
-wire [31:0]  bj_alu_result, bj_alu_result_, bjMux_PC_output;
+wire [31:0]  b_alu_result, b_alu_result_, bMux_PC_output, finalPC;
 wire [31:0] pcFD, pcDE, pcEM;
 
 // fetch
-pc              pc(clk, reset, (pc_en & dhit), bjMux_PC_output, pcf);
-mux2     #(32)  muxPCJumpBranch((BranchM & zero_), pc_, bj_alu_result_, bjMux_PC_output);
+pc              pc(clk, reset, (pc_en & dhit), finalPC, pcf);
+mux2     #(32)  muxPCBranch((BranchM & zero_), pc_, b_alu_result_, bMux_PC_output);
+mux2     #(32)  muxPCJump(JumpM, bMux_PC_output, ALUOutM, finalPC);
 pc_plus4        pc_plus4(pcf, pc_);
 instreg         instreg(clk, dhit, pcf, ri, instr, pcFD);
+assign sendNop = (((BranchM & zero_) || JumpM) == 1 ) ? 1 : 0;
 
 // register file logic
 assign ra1 = instr[19:15];
@@ -64,13 +68,15 @@ regfile         regfile(clk, reset, RegWriteW, ra1, ra2, WriteRegW, ResultW, rd1
 signext  #(8)   extrd2(rd2[7:0], ByteStoreExt);
 mux2     #(32)  muxStoreData(ByteD, rd2, ByteStoreExt, StoreDataD);
 signextD        signImm(instr, LoadD, MemWriteD, BranchD, JumpD, SignImmD);
-areg            areg(clk, dhit, pcFD, rd1, StoreDataD, instr[11:7], SignImmD, SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
+areg            areg(clk, dhit, pcFD, rd1, StoreDataD, instr[11:7], SignImmD, sendNop,
+                 SrcAE, rd2E, WriteRegE, WriteDataE, SignImmE, pcDE);
 
 // execute
 mux2     #(32)  muxALUSrcBE(ALUSrcE, rd2E, SignImmE, SrcBE);
 alu             alu(SrcAE, SrcBE, AluControlE, aluresult, zero_flag);
-alureg          alureg(clk, dhit, pcDE, aluresult, zero_flag, bj_alu_result, WriteDataE, WriteRegE, ALUOutM, zero_, bj_alu_result_, WriteDataM, WriteRegM, pcEM);
-aluPC           aluPC(pcDE, SignImmE, bj_alu_result);
+alureg          alureg(clk, dhit, pcDE, aluresult, zero_flag, b_alu_result, WriteDataE, WriteRegE, sendNop,
+                 ALUOutM, zero_, b_alu_result_, WriteDataM, WriteRegM, pcEM);
+aluPC           aluPC(pcDE, SignImmE, b_alu_result);
 
 // memory
 rdreg           rdreg(clk, dhit, ReadData, WriteRegM, ALUOutM, ReadDataW, WriteRegW, ALUOutW);
