@@ -73,8 +73,8 @@ aluPC           aluPC(pcDE, SignImmE, bj_alu_result);
 alureg          alureg(clk, dhit, pcDE, aluresult, zero_flag, bj_alu_result, WriteDataE, WriteRegE, ALUOutM, zero_, bj_alu_result_, WriteDataM, WriteRegM, pcEM);
 
 // memory
-rdreg           rdreg(clk, dhit, ReadData, WriteRegM, ALUOutM, 
-		      ReadDataW, WriteRegW, ALUOutW);
+rdreg           rdreg(clk, dhit, ReadData, WriteRegM, 
+	              ALUOutM, ReadDataW, WriteRegW, ALUOutW);
 
 mux4     #(8)   muxbyte(ALUOutW[1:0], ReadDataW[31:24], ReadDataW[23:16], ReadDataW[15:8], ReadDataW[7:0], ByteResultW);
 signext  #(8)   extbytewrite(ByteResultW, ExtByteResultW);

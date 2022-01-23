@@ -32,5 +32,4 @@ icache     icache(clk, pc,
 
 always @ (negedge clk) 
 	$display("-------------------------------At %d, memwrite = %b, addres = %d, writedata = %d", $time, MemWrite, ALUOut, WriteData);
-
 endmodule
